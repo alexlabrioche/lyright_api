@@ -1,9 +1,9 @@
 const express = require('express');
 
-// const formationsRouter = require("./formations_router");
+const artistsRouter = require('./artists_router');
 
 const mainRouter = express.Router();
 
-// mainRouter.use("/formations", formationsRouter);
+mainRouter.use('/artists', artistsRouter);
 
 module.exports = mainRouter;
