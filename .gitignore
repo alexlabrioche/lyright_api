@@ -1,0 +1,10 @@
+/node_modules
+.env
+.vscode
+
+# Coverage directory used by istanbul
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output

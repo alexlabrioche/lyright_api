@@ -1,0 +1,6 @@
+{
+  "include": ["src/**/*.js"],
+  "exclude": ["src/**/*.spec.js"],
+  "reporter": ["text", "html"],
+  "reporter-dir": "./coverage"
+}
