@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Artist = sequelize.define(
-    'Artist',
+    "Artist",
     {
       id: {
         allowNull: false,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       birthName: {
-        field: 'birth_name',
+        field: "birth_name",
         type: DataTypes.STRING,
         validate: {
           notNull: false,
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       createdAt: {
-        field: 'created_at',
+        field: "created_at",
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       updatedAt: {
-        field: 'updated_at',
+        field: "updated_at",
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: 'artists',
+      tableName: "artists",
     },
   );
 

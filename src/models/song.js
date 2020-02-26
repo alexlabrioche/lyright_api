@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Song = sequelize.define(
-    'Song',
+    "Song",
     {
       id: {
         allowNull: false,
@@ -20,17 +20,17 @@ module.exports = (sequelize, DataTypes) => {
           len: [2, 100],
         },
       },
-      lyrics: {
-        allowNull: false,
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
+      // lyrics: {
+      //   allowNull: false,
+      //   type: DataTypes.ARRAY(DataTypes.STRING),
+      // },
       artistId: {
-        field: 'artist_id',
+        field: "artist_id",
         allowNull: false,
         type: DataTypes.UUID,
       },
       createdAt: {
-        field: 'created_at',
+        field: "created_at",
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       updatedAt: {
-        field: 'updated_at',
+        field: "updated_at",
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
@@ -51,15 +51,15 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      tablename: 'songs',
+      tablename: "songs",
     },
   );
 
   Song.associate = (models) => {
     Song.belongsTo(models.Artist, {
-      onDelete: 'CASCADE',
+      onDelete: "CASCADE",
       foreignKey: {
-        name: 'artistId',
+        name: "artist_id",
         allowNull: false,
       },
     });

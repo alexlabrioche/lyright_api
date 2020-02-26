@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('artists', {
+    return queryInterface.createTable("artists", {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -31,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('artists');
+    return queryInterface.dropTable("artists");
   },
 };

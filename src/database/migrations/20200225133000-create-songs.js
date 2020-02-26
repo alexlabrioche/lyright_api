@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('songs', {
+    return queryInterface.createTable("songs", {
       id: {
         allowNull: false,
         primaryKey: true,
@@ -12,17 +12,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(100),
       },
-      lyrics: {
-        allowNull: false,
-        type: Sequelize.ARRAY(Sequelize.STRING),
-      },
+      // lyrics: {
+      //   allowNull: false,
+      //   type: Sequelize.ARRAY(Sequelize.STRING),
+      // },
       artist_id: {
         allowNull: false,
         type: Sequelize.UUID,
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
         references: {
-          model: 'artists',
-          key: 'id',
+          model: "artists",
+          key: "id",
         },
       },
       created_at: {
@@ -38,6 +38,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('songs');
+    return queryInterface.dropTable("songs");
   },
 };

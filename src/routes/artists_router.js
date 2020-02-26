@@ -1,31 +1,34 @@
-const express = require('express');
-require('express-async-errors');
+const express = require("express");
+require("express-async-errors");
 
 const {
   getAllArtists,
   getArtist,
-} = require('../controllers/artists_controller');
+  getSongsFromArtist,
+} = require("../controllers/artists_controller");
 
-const { OK } = require('../helpers/status_code');
+const { OK } = require("../helpers/status_code");
 
-const artistsRouter = express.Router();
+const router = express.Router();
 
-artistsRouter.get('/test', async (request, response) => {
+router.get("/", async (request, response) => {
+  const data = await getAllArtists();
   response.status(OK);
-  response.json({ message: 'ok bb' });
+  response.json({ error: null, data });
 });
 
-artistsRouter.get('/', async (request, response) => {
-  const artists = await getAllArtists();
-  response.status(OK);
-  response.json({ error: null, data: artists });
-});
-
-artistsRouter.get('/:id', async (request, response) => {
+router.get("/:id", async (request, response) => {
   const { id } = request.params;
-  const artists = await getArtist(id);
+  const data = await getArtist(id);
   response.status(OK);
-  response.json({ error: null, data: artists });
+  response.json({ error: null, data });
 });
 
-module.exports = artistsRouter;
+router.get("/:id/songs", async (request, response) => {
+  const { id } = request.params;
+  const data = await getSongsFromArtist(id);
+  response.status(OK);
+  response.json({ error: null, data });
+});
+
+module.exports = router;
