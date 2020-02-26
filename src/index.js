@@ -1,9 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const server = require('./server');
+const server = require("./server");
 
 const port = process.env.PORT || 8080;
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || "development";
 
 /* eslint-disable no-console */
 server.listen(port, () => {

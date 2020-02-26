@@ -1,4 +1,4 @@
-const { SERVER_ERROR } = require('../helpers/status_code');
+const { SERVER_ERROR } = require("../helpers/status_code");
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (error, _, response, next) => {
@@ -7,9 +7,9 @@ const errorHandler = (error, _, response, next) => {
   if (!status) {
     response.status(SERVER_ERROR);
     response.json({
-      titre: 'Oups ! Quelque chose ne fonctionne pas !',
+      titre: "Oups ! Quelque chose ne fonctionne pas !",
       description:
-        'Le serveur rencontre un problème inconnu. Veuillez réessayer plus tard.',
+        "Le serveur rencontre un problème inconnu. Veuillez réessayer plus tard.",
     });
   }
 
