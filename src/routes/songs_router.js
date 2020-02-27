@@ -12,7 +12,7 @@ router.get("/:id", async (request, response) => {
 
   const data = await getSongDetails(id);
   response.status(OK);
-  response.json({ error: null, data });
+  response.json({ data });
 });
 
 module.exports = router;
