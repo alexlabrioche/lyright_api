@@ -1,11 +1,8 @@
 const generateAlphaNumStr = require("../utils/generateAlphaNumStr");
 const generateStupidPseudo = require("../utils/generateStupidPseudo");
+const getRandomInteger = require("../utils/getRandomInteger");
 
 const { Artist } = require("../models");
-
-function randomInt(max) {
-  return Math.floor(Math.random() * (Math.floor(max) - 1)) + 1;
-}
 
 const controller = {
   getSecretCode: () => {
@@ -16,7 +13,9 @@ const controller = {
       attributes: ["name"],
       raw: true,
     });
-    const sorry4U = artists[randomInt(artists.length)];
+    const sorry4U = artists
+      ? artists[getRandomInteger(0, artists.length)]
+      : { name: "Concon" };
     return generateStupidPseudo(sorry4U.name);
   },
 };

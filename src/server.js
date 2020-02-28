@@ -20,6 +20,7 @@ server.get("/ping", (req, res) => {
 
 server.use("/api", routes);
 
+// console.log("CICICICICICICICCICI".repeat(20));
 server.use(notFoundHandler);
 server.use(errorLogger);
 server.use(errorHandler);

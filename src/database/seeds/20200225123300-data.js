@@ -30,19 +30,20 @@ const artistsToInsert = dataFormatted.map(
 
 const songsToInsert = flatten(
   dataFormatted.map((artist) => {
-    return artist.discography.map(({ song }) => ({
+    return artist.discography.map(({ song, lyrics }) => ({
       id: uuid(),
       title: song,
       artist_id: artist.id,
-      // lyrics,
+      lyrics,
       created_at: now,
       updated_at: now,
     }));
   }),
-);
-// .filter(
-//   ({ lyrics }) => lyrics.length > 0 && lyrics.every((s) => s.length < 255),
-// );
+)
+  .filter(
+    ({ lyrics }) => lyrics.length > 0 && lyrics.every((s) => s.length < 255),
+  )
+  .map((song) => ({ ...song, lyrics: song.lyrics.join("\n") }));
 
 module.exports = {
   artistsToInsert,

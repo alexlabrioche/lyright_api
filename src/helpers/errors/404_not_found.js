@@ -7,7 +7,6 @@ module.exports = class NotFoundError extends Error {
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, NotFoundError);
     }
-
     this.name = "NotFoundError";
     this.status = NOT_FOUND;
     this.title = title;

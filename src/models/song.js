@@ -20,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
           len: [2, 100],
         },
       },
-      // lyrics: {
-      //   allowNull: false,
-      //   type: DataTypes.ARRAY(DataTypes.STRING),
-      // },
+      lyrics: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+      },
       artistId: {
         field: "artist_id",
         allowNull: false,

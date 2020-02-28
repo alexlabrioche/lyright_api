@@ -12,10 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(100),
       },
-      // lyrics: {
-      //   allowNull: false,
-      //   type: Sequelize.ARRAY(Sequelize.STRING),
-      // },
+      lyrics: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
       artist_id: {
         allowNull: false,
         type: Sequelize.UUID,
