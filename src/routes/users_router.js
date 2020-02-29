@@ -1,13 +1,20 @@
 const express = require("express");
 require("express-async-errors");
 
-const { addNewUser } = require("../controllers/users_controller");
+const { addNewUser, loginUser } = require("../controllers/users_controller");
 
-const { CREATED } = require("../helpers/status_code");
+const { CREATED, OK } = require("../helpers/status_code");
 
 const router = express.Router();
 
-router.post("/", async (request, response) => {
+router.post("/login", async (request, response) => {
+  const data = request.body;
+  const user = await loginUser(data);
+  response.status(OK);
+  response.json({ data: user });
+});
+
+router.post("/singup", async (request, response) => {
   const data = request.body;
   const user = await addNewUser(data);
   response.status(CREATED);
