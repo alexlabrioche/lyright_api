@@ -13,10 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       code: {
-        allowNull: true,
-        type: DataTypes.CHAR(5),
+        allowNull: false,
+        type: DataTypes.TEXT,
         validate: {
-          notNull: false,
+          notNull: true,
         },
       },
       userId: {
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     Game.belongsTo(models.User, {
       onDelete: "CASCADE",
       foreignKey: {
-        name: "user_id",
+        name: "userId",
         allowNull: false,
       },
     });

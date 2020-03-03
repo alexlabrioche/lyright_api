@@ -14,7 +14,7 @@ router.post("/login", async (request, response) => {
   response.json({ data: user });
 });
 
-router.post("/singup", async (request, response) => {
+router.post("/signup", async (request, response) => {
   const data = request.body;
   const user = await addNewUser(data);
   response.status(CREATED);

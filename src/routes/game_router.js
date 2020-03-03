@@ -2,18 +2,19 @@ const express = require("express");
 require("express-async-errors");
 
 const {
-  getSecretCode,
   getStupidPseudo,
+  initNewGame,
 } = require("../controllers/game_controller");
 
 const { OK } = require("../helpers/status_code");
 
 const router = express.Router();
 
-router.get("/code", (request, response) => {
-  const secretCode = getSecretCode();
+router.post("/init", async (request, response) => {
+  const id = request.body.userId;
+  const game = await initNewGame(id);
   response.status(OK);
-  response.json({ data: secretCode });
+  response.json({ data: game });
 });
 
 router.get("/pseudo", async (request, response) => {

@@ -3,8 +3,12 @@ const helmet = require("helmet");
 const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const http = require("http");
+const socketIO = require("socket.io");
 
-const { notFoundHandler, errorLogger, errorHandler } = require("./middlewares");
+const SocketController = require("./controllers/socket_controller");
+
+// const { notFoundHandler, errorLogger, errorHandler } = require("./middlewares");
 const routes = require("./routes");
 
 const server = express();
@@ -14,15 +18,15 @@ server.use(logger("tiny"));
 server.use(bodyParser.json());
 server.use("/api", cors());
 
-server.get("/ping", (req, res) => {
-  res.json({ message: "pong" });
-});
-
 server.use("/api", routes);
 
-// console.log("CICICICICICICICCICI".repeat(20));
-server.use(notFoundHandler);
-server.use(errorLogger);
-server.use(errorHandler);
+// server.use(notFoundHandler);
+// server.use(errorLogger);
+// server.use(errorHandler);
 
-module.exports = server;
+const httpServer = http.createServer(server);
+const io = socketIO(httpServer);
+
+io.on("connection", SocketController(io));
+
+module.exports = httpServer;
