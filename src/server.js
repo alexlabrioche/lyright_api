@@ -5,13 +5,19 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const http = require("http");
 const socketIO = require("socket.io");
-
 const SocketController = require("./controllers/socket_controller");
 
-// const { notFoundHandler, errorLogger, errorHandler } = require("./middlewares");
+const {
+  // notFoundHandler,
+  // errorLogger,
+  errorHandler,
+} = require("./middlewares");
+
 const routes = require("./routes");
 
 const server = express();
+
+server.use(errorHandler);
 
 server.use(helmet());
 server.use(logger("tiny"));
@@ -22,7 +28,6 @@ server.use("/api", routes);
 
 // server.use(notFoundHandler);
 // server.use(errorLogger);
-// server.use(errorHandler);
 
 const httpServer = http.createServer(server);
 const io = socketIO(httpServer);

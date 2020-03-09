@@ -31,6 +31,7 @@
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "express-async-errors": "3.1.1",
+    "firebase-admin": "^8.9.2",
     "helmet": "3.21.2",
     "http": "0.0.0",
     "lodash": "4.17.15",

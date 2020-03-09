@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.get("/:id", async (request, response) => {
   const { id } = request.params;
-
   const data = await getSongDetails(id);
   response.status(OK);
   response.json({ data });

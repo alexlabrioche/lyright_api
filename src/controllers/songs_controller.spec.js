@@ -3,14 +3,10 @@
 // const { expect } = require("chai");
 // const sinon = require("sinon");
 // const uuid = require("uuid/v4");
-// const {
-//   getAllArtists,
-//   getArtist,
-//   getSongsFromArtist,
-// } = require("./artists_controller");
-// const { Artist, Song } = require("../models");
+// const { getLyricStr } = require("./songs_controller");
+// const { Song } = require("../models");
 
-// describe("Controllers :: artists", () => {
+// describe("Controllers :: songs", () => {
 //   // Given
 //   const artistId = uuid();
 
@@ -21,8 +17,8 @@
 
 //   const createReturnArray = Array.from(new Array({ artistId }));
 
-//   const createStubArtist = sinon
-//     .stub(Artist, "findAll")
+//   const stubFindAllSongs = sinon
+//     .stub(Song, "findAll")
 //     .returns(createReturnArray);
 
 //   const createStubSong = sinon.stub(Song, "findAll").returns(createReturnArray);
@@ -31,7 +27,7 @@
 //     .stub(Artist, "findByPk")
 //     .returns(createReturnObject);
 
-//   describe("#getAllArtists", () => {
+//   describe("#getLyricStr", () => {
 //     it("should return the all the artists in db", async () => {
 //       // When
 //       const createdArray = await getAllArtists();
