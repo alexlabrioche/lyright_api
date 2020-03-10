@@ -13,11 +13,7 @@ const routes = require("./routes");
 
 const server = express();
 
-const whitelist = [
-  "http://localhost:3000",
-  "https://lyright.herokuapp.com/",
-  "https://lyright-api.herokuapp.com/",
-];
+const whitelist = ["http://localhost:3000", "https://lyright.herokuapp.com"];
 
 const corsOptions = {
   origin: (origin, callback) => {
