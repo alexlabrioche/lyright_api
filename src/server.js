@@ -13,22 +13,24 @@ const routes = require("./routes");
 
 const server = express();
 
+const whitelist = ["http://localhost:3000", "https://lyright.herokuapp.com/"];
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
 server.use(errorHandler);
 server.use(notFoundHandler);
 
 server.use(helmet());
 server.use(logger("tiny"));
 server.use(bodyParser.json());
-server.use("/api", cors());
-
-server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept",
-  );
-  next();
-});
+server.use("/api", cors(corsOptions));
 
 server.use("/api", routes);
 
