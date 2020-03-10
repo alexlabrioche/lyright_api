@@ -24,13 +24,14 @@ const corsOptions = {
   },
 };
 
+server.use("/api", cors(corsOptions));
+
 server.use(errorHandler);
 server.use(notFoundHandler);
 
 server.use(helmet());
 server.use(logger("tiny"));
 server.use(bodyParser.json());
-server.use("/api", cors(corsOptions));
 
 server.use("/api", routes);
 
