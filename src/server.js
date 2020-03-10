@@ -22,7 +22,7 @@ server.use(bodyParser.json());
 server.use("/api", cors());
 
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://lyright.herokuapp.com/");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept",
