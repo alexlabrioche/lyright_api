@@ -7,7 +7,7 @@ const http = require("http");
 const socketIO = require("socket.io");
 const SocketController = require("./controllers/socket_controller");
 
-const { notFoundHandler, errorHandler } = require("./middlewares");
+const { errorHandler } = require("./middlewares");
 
 const routes = require("./routes");
 
