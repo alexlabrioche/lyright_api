@@ -15,7 +15,7 @@ const server = express();
 
 const whitelist = ["http://localhost:3000", "https://lyright.herokuapp.com/"];
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
