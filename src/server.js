@@ -19,7 +19,7 @@ server.use(notFoundHandler);
 server.use(helmet());
 server.use(logger("tiny"));
 server.use(bodyParser.json());
-server.use("/api", cors());
+server.use(cors());
 
 server.use("/api", routes);
 
