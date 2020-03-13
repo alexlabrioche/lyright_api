@@ -28,7 +28,6 @@ const corsOptions = {
 server.use("/api", cors(corsOptions));
 
 server.use(errorHandler);
-// server.use(notFoundHandler);
 
 server.use(helmet());
 server.use(logger("tiny"));
