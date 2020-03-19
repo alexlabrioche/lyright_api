@@ -7,6 +7,7 @@ module.exports = {
     try {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       if (decodedToken) {
+        req.body.user = decodedToken;
         return next();
       }
       throw new UnauthorizedError("oups");

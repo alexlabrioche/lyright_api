@@ -25,7 +25,11 @@ const corsOptions = {
   },
 };
 
-server.use("/api", cors(corsOptions));
+if (process.env.NODE_ENV !== "development") {
+  server.use("/api", cors(corsOptions));
+} else {
+  server.use("/api", cors());
+}
 
 server.use(errorHandler);
 

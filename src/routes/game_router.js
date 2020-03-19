@@ -5,7 +5,7 @@ const {
   getStupidPseudo,
   initNewGame,
   guessTheLyric,
-  initNewGameV2,
+  joinGame,
 } = require("../controllers/game_controller");
 const { validateToken } = require("../middlewares/validate_token");
 
@@ -20,17 +20,23 @@ router.get("/lyric", async (request, response) => {
   response.json({ data });
 });
 
-router.get("/", validateToken, (request, response) => {
-  const code = initNewGameV2();
-  response.status(OK);
-  response.json({ data: { code } });
-});
-
-router.post("/init", validateToken, async (request, response) => {
-  const id = request.body.userId;
+router.get("/new", validateToken, async (request, response) => {
+  const id = request.body.user.uid;
+  const pseudo = request.body.user.name;
   const game = await initNewGame(id);
   response.status(OK);
-  response.json({ data: game });
+  response.json({ data: { ...game, pseudo } });
+});
+
+router.post("/join", async (request, response) => {
+  const { code, pseudo } = request.body;
+  const game = await joinGame(code);
+  let addPseudo = pseudo;
+  if (pseudo.length === 0) {
+    addPseudo = await getStupidPseudo();
+  }
+  response.status(OK);
+  response.json({ data: { ...game, pseudo: addPseudo } });
 });
 
 router.get("/pseudo", async (request, response) => {

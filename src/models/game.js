@@ -20,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       userId: {
-        field: "user_id",
+        field: "user_uid",
         allowNull: false,
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
       },
       createdAt: {
         field: "created_at",
@@ -49,16 +49,5 @@ module.exports = (sequelize, DataTypes) => {
       tablename: "games",
     },
   );
-
-  Game.associate = (models) => {
-    Game.belongsTo(models.User, {
-      onDelete: "CASCADE",
-      foreignKey: {
-        name: "userId",
-        allowNull: false,
-      },
-    });
-  };
-
   return Game;
 };

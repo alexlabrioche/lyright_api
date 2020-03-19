@@ -12,14 +12,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      user_id: {
+      user_uid: {
         allowNull: false,
-        type: Sequelize.UUID,
-        onDelete: "CASCADE",
-        references: {
-          model: "users",
-          key: "id",
-        },
+        type: Sequelize.STRING,
       },
       created_at: {
         allowNull: false,

@@ -54,11 +54,19 @@ const controller = {
     const game = await Game.create(data);
     return pick(game, ["id", "code", "userId"]);
   },
-  initNewGameV2: () => {
-    const code = generateAlphaNumStr();
-    return code;
+  joinGame: async (secretCode) => {
+    const game = await Game.findAll({
+      where: {
+        code: secretCode,
+      },
+      raw: true,
+      limit: 1,
+    });
+    if (game.length === 0) {
+      throw new NotFoundError("pas de partie avec ce code");
+    }
+    return game[0];
   },
-
   getStupidPseudo: async () => {
     const artistsList = await Artist.findAll({
       attributes: ["name"],
