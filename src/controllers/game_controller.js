@@ -34,6 +34,7 @@ async function getArtistAndSongs(id) {
   });
   return artistAndSongs;
 }
+
 async function getArtist(id) {
   const artist = await Artist.findByPk(id, {
     attributes: ["id", "name"],
@@ -67,34 +68,43 @@ const controller = {
     }
     return game[0];
   },
-  getStupidPseudo: async () => {
-    const artistsList = await Artist.findAll({
-      attributes: ["name"],
-      raw: true,
-    });
-    const index = getRandomInt(0, artistsList.length);
-    const artist = artistsList ? artistsList[index] : { name: "Concon" };
-    return generateStupidPseudo(artist.name);
+  getStupidPseudo: async (pseudo) => {
+    let name = pseudo;
+    if (!pseudo) {
+      const artistsList = await Artist.findAll({
+        attributes: ["name"],
+        raw: true,
+      });
+      const index = getRandomInt(0, artistsList.length);
+      const artist = artistsList ? artistsList[index] : { name: "Concon" };
+      name = artist.name;
+    }
+    return generateStupidPseudo(name);
   },
-
   guessTheLyric: async (query) => {
     const { id1, id2, length = 50 } = query;
-    const allArtists = await Artist.findAll();
-    const max = allArtists.length;
-    const firstId = id1 || allArtists[getRandomInt(0, max)].id;
-    const secondId = id2 || allArtists[getRandomInt(0, max)].id;
-    const ids = [firstId, secondId];
-    const winnerId = ids[getRandomInt(0, 2)];
 
-    const artistAndSongs = await getArtistAndSongs(winnerId);
-    const SongsList = artistAndSongs.Songs;
-    const artistLyricsCount = reduceTotalLyrics(SongsList);
-    const artist = await getArtist(secondId);
+    const allArtists = await Artist.findAll();
+
+    const max = allArtists.length;
+
+    const ids = [
+      id1 || allArtists[getRandomInt(0, max)].id,
+      id2 || allArtists[getRandomInt(0, max)].id,
+    ];
+
+    const winnerId = ids.splice(getRandomInt(0, 2), 1)[0];
+    const looserId = ids[0];
+
+    const winnerArtist = await getArtistAndSongs(winnerId);
+    const looserArtist = await getArtist(looserId);
 
     let attempt = 0;
     let lyricObj;
     let song;
     let lyricsArr;
+    const SongsList = winnerArtist.Songs;
+    const maxCount = reduceTotalLyrics(SongsList);
 
     do {
       const songIndex = getRandomInt(0, SongsList.length);
@@ -102,7 +112,7 @@ const controller = {
       lyricsArr = song.lyrics.split("\n");
       lyricObj = checkIfLongEnough(lyricsArr, length);
       attempt += 1;
-    } while (typeof lyricObj.str !== "string" && attempt < artistLyricsCount);
+    } while (typeof lyricObj.str !== "string" && attempt < maxCount);
 
     if (lyricObj.str) {
       const lyricIndex = lyricObj.index;
@@ -116,17 +126,17 @@ const controller = {
           lyrics: returnLyrics,
           title: song.title,
           id: song.id,
-          artist: artistAndSongs.name,
-          artistId: artistAndSongs.id,
+          artist: winnerArtist.name,
+          artistId: winnerArtist.id,
         },
         artists: [
           {
-            name: artistAndSongs.name,
-            id: artistAndSongs.id,
+            name: winnerArtist.name,
+            id: winnerArtist.id,
           },
           {
-            name: artist.name,
-            id: artist.id,
+            name: looserArtist.name,
+            id: looserArtist.id,
           },
         ],
       };
@@ -134,16 +144,6 @@ const controller = {
     throw new NotFoundError(
       "L'artiste n'a pas de lyric ou la longueur minimale est trop importante",
     );
-  },
-  guessTheLyricTDD: async () => {
-    const songList = await Song.findAll();
-
-    const song = songList[0];
-    return {
-      id: song.id,
-      title: song.title,
-      lyrics: [song.lyrics[0], song.lyrics[1]],
-    };
   },
 };
 

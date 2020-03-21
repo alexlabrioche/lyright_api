@@ -13,7 +13,7 @@ const { OK } = require("../helpers/status_code");
 
 const router = express.Router();
 
-router.get("/lyric", async (request, response) => {
+router.get("/lyrics", async (request, response) => {
   const { query } = request;
   const data = await guessTheLyric(query);
   response.status(OK);
@@ -29,14 +29,17 @@ router.get("/new", validateToken, async (request, response) => {
 });
 
 router.post("/join", async (request, response) => {
-  const { code, pseudo } = request.body;
+  const { code, pseudo, enhanceName } = request.body;
   const game = await joinGame(code);
-  let addPseudo = pseudo;
+  let pseudoEnhanced = pseudo;
+  if (enhanceName) {
+    pseudoEnhanced = await getStupidPseudo(pseudo);
+  }
   if (pseudo.length === 0) {
-    addPseudo = await getStupidPseudo();
+    pseudoEnhanced = await getStupidPseudo();
   }
   response.status(OK);
-  response.json({ data: { ...game, pseudo: addPseudo } });
+  response.json({ data: { ...game, pseudo: pseudoEnhanced } });
 });
 
 router.get("/pseudo", async (request, response) => {
