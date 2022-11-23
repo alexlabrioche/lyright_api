@@ -41,7 +41,7 @@
     "pg-hstore": "2.3.3",
     "sequelize": "5.21.5",
     "sequelize-cli": "5.5.1",
-    "socket.io": "2.3.0",
+    "socket.io": "2.5.0",
     "uuid": "3.4.0",
     "yup": "0.28.1"
   },
